@@ -1,0 +1,2 @@
+Tạo database tên: checker
+import file: checker.sql

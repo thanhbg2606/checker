@@ -1,0 +1,27 @@
+CREATE TABLE checker.tblrank (
+  rankId int(11) NOT NULL AUTO_INCREMENT,
+  userId int(11) DEFAULT NULL,
+  battleWin int(11) DEFAULT NULL,
+  battleLose int(11) DEFAULT NULL,
+  totalBattle int(11) DEFAULT NULL,
+  point int(11) DEFAULT NULL,
+  winRate double DEFAULT NULL,
+  PRIMARY KEY (rankId)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8,
+COLLATE utf8_general_ci;
+
+
+SELECT
+  `tbluser`.`fullName` AS `fullName`,
+  `tblrank`.`userId` AS `userId`,
+  `tblrank`.`rankId` AS `rankId`,
+  `tblrank`.`battleWin` AS `battleWin`,
+  `tblrank`.`battleLose` AS `battleLose`,
+  `tblrank`.`totalBattle` AS `totalBattle`,
+  `tblrank`.`point` AS `point`,
+  `tblrank`.`winRate` AS `winRate`
+FROM (`tblrank`
+  LEFT JOIN `tbluser`
+    ON ((`tblrank`.`userId` = `tbluser`.`ID`)))
