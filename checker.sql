@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2021 at 02:08 PM
+-- Generation Time: Nov 23, 2021 at 02:24 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -75,7 +75,7 @@ CREATE TABLE `tblgroup` (
 --
 
 INSERT INTO `tblgroup` (`groupid`, `name`, `notify`, `createDate`, `userid`) VALUES
-(10, 'Bac_Van', 'hahahiadwl', '18-11-2021 21:25:31', 1),
+(10, 'Bac_Van', 'lalaldkao', '18-11-2021 21:25:31', 1),
 (11, 'Bac_Giang', 'Mamuasdik', '18-11-2021 21:27:15', 84),
 (13, 'Chien_Ha', NULL, '20-11-2021 13:51:45', 78);
 
@@ -126,7 +126,10 @@ INSERT INTO `tblnotify` (`ID`, `type`, `content`, `time`, `status`, `userid`, `i
 (65, 'joingroup', 'Xuan muốn gia nhập group', NULL, 1, 84, 99),
 (66, 'joingroup', 'Le Van Van muốn gia nhập group', NULL, 1, 1, 77),
 (67, 'joingroup', 'The Tung muốn gia nhập group', NULL, 1, 1, 100),
-(68, 'joingroup', 'Hoang muốn gia nhập group', NULL, 1, 1, 92);
+(68, 'joingroup', 'Hoang muốn gia nhập group', NULL, 1, 1, 92),
+(69, 'joingroup', 'Van Phu muốn gia nhập group', NULL, 0, 84, 93),
+(70, 'joingroup', 'Van Phu muốn gia nhập group', NULL, 1, 1, 93),
+(71, 'joingroup', 'Le Van Van muốn gia nhập group', NULL, 1, 1, 77);
 
 -- --------------------------------------------------------
 
@@ -152,6 +155,46 @@ INSERT INTO `tblrank` (`rankId`, `userId`, `battleWin`, `battleLose`, `totalBatt
 (1, 1, 1, 0, 2, 3, 50),
 (2, 2, 3, 2, 5, 9, 60),
 (3, 3, 4, 5, 9, 12, 44.44);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblroom`
+--
+
+CREATE TABLE `tblroom` (
+  `roomId` int(11) NOT NULL,
+  `roomCode` int(11) NOT NULL,
+  `roomName` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `roomMasterId` int(11) NOT NULL,
+  `playerId` int(11) DEFAULT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tblroom`
+--
+
+INSERT INTO `tblroom` (`roomId`, `roomCode`, `roomName`, `description`, `roomMasterId`, `playerId`, `quantity`) VALUES
+(1, 94, 'Nguyen Ngoc Thanh', 'Đang chờ', 1, NULL, 1),
+(2, 40, 'Nguyen Ngoc Thanh', 'Đang chờ', 1, NULL, 1),
+(3, 45, 'Nguyen Ngoc Thanh', 'Đang chờ', 1, 2, 1),
+(4, 91, 'Nguyen Ngoc Thanh', 'Đang chờ', 1, NULL, 1),
+(5, 9, 'Nguyen Ngoc Thanh', 'Đang chờ', 1, NULL, 1),
+(6, 3, 'Nguyen Ngoc Thanh', 'Đang chờ', 1, NULL, 1),
+(7, 76, 'Nguyen Ngoc Thanh', 'Đang chờ', 1, NULL, 1),
+(8, 62, 'Nguyen Ngoc Thanh', 'Đang chờ', 1, NULL, 1),
+(9, 55, 'Nguyen Ngoc Thanh', 'Đang chờ', 1, 2, 1),
+(10, 73, 'Nguyen Ngoc Thanh', 'Đang chờ', 1, NULL, 1),
+(11, 67, 'Nguyen Ngoc Thanh', 'Đang chờ', 1, 0, 1),
+(12, 80, 'Nguyen Ngoc Thanh', 'Đang chờ', 1, 2, 1),
+(13, 76, 'Long', 'Đang chờ', 2, 0, 1),
+(14, 45, 'Nguyen Ngoc Thanh', 'Đang chờ', 1, 2, 1),
+(15, 70, 'Nguyen Ngoc Thanh', 'Đang chờ', 1, 2, 1),
+(16, 928, 'Nguyen Ngoc Thanh', 'Đang chờ', 1, 0, 1),
+(17, 909, 'Nguyen Ngoc Thanh', 'Đủ', 1, 2, 2),
+(18, 734, 'Nguyen Ngoc Thanh', 'Đủ', 1, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -187,13 +230,12 @@ INSERT INTO `tbluser` (`ID`, `username`, `password`, `fullName`, `position`, `st
 (86, '11', '11', 'Hien', 'Player', 'OFFLINE'),
 (92, '12', '12', 'Hoang', 'Player', 'OFFLINE'),
 (93, '13', '13', 'Van Phu', 'Player', 'OFFLINE'),
-(94, '14', '14', 'Tran Ha', 'Player', 'OFFLINE'),
 (95, '15', '15', 'Ho', 'Player', 'OFFLINE'),
 (96, 'test1', '1', 'test1', 'Player', 'OFFLINE'),
 (97, 'test2', '12', 'test2', 'Player', 'OFFLINE'),
 (98, 'thanhbg@gmail.com', '123456', 'Nguyen  Thanh', 'Player', 'OFFLINE'),
 (99, '16', '16', 'Xuan', 'Player', 'OFFLINE'),
-(100, '17', '17', 'The Tung', 'Player', 'ONLINE'),
+(100, '17', '17', 'The Tung', 'Player', 'OFFLINE'),
 (101, 'thanhbg1@gmail.com', '123456', 'Thanh Nam', 'Player', 'OFFLINE');
 
 -- --------------------------------------------------------
@@ -221,10 +263,10 @@ INSERT INTO `tblusergroup` (`id`, `groupid`, `userid`, `position`) VALUES
 (13, 11, 80, 'member'),
 (15, 11, 79, 'member'),
 (16, 11, 99, 'member'),
-(17, 10, 77, 'member'),
 (19, 13, 78, 'owner'),
-(20, 10, 100, 'member'),
-(21, 10, 92, 'member');
+(21, 10, 92, 'member'),
+(22, 10, 93, 'member'),
+(23, 10, 77, 'member');
 
 -- --------------------------------------------------------
 
@@ -353,6 +395,12 @@ ALTER TABLE `tblrank`
   ADD PRIMARY KEY (`rankId`);
 
 --
+-- Indexes for table `tblroom`
+--
+ALTER TABLE `tblroom`
+  ADD PRIMARY KEY (`roomId`);
+
+--
 -- Indexes for table `tbluser`
 --
 ALTER TABLE `tbluser`
@@ -379,13 +427,19 @@ ALTER TABLE `tblgroup`
 -- AUTO_INCREMENT for table `tblnotify`
 --
 ALTER TABLE `tblnotify`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `tblrank`
 --
 ALTER TABLE `tblrank`
   MODIFY `rankId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tblroom`
+--
+ALTER TABLE `tblroom`
+  MODIFY `roomId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tbluser`
@@ -397,7 +451,7 @@ ALTER TABLE `tbluser`
 -- AUTO_INCREMENT for table `tblusergroup`
 --
 ALTER TABLE `tblusergroup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables
