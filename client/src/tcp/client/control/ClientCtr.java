@@ -25,6 +25,7 @@ import tcp.client.view.ClientMainFrm;
 import tcp.client.view.HomeUserFrm;
 import tcp.client.view.Login;
 import tcp.client.view.RegUserFrm;
+import tcp.client.view.RoomFrm;
  
  
 public class ClientCtr {
@@ -172,6 +173,15 @@ public class ClientCtr {
                                     
                                     view.showMessage("Display Friend");
                                 }
+                                
+                                case ObjectWrapper.REPLY_DISPLAY_ROOM -> {
+                                
+                                    RoomFrm r = (RoomFrm)fto.getData();
+                                    r.receivedDataProcessing(data);
+                                    
+                                    view.showMessage("Display Room");
+                                    
+                                }
                                 case ObjectWrapper.REPLY_SEND_REQUEST_FRIEND_CLIENT ->{
                                     HomeUserFrm huf = (HomeUserFrm)fto.getData();
                                     huf.receivedDataProcessing(data); 
@@ -201,6 +211,12 @@ public class ClientCtr {
                                     HomeUserFrm huf = (HomeUserFrm)fto.getData();
                                     huf.receivedDataProcessing(data);
                                     System.out.println("Cập nhật lại khi giao diện khi gia nhập group");
+                                }
+                                
+                                case ObjectWrapper.REPLY_UPDATE_GD_PLAYER ->{
+                                    RoomFrm rf = (RoomFrm)fto.getData();
+                                    rf.receivedDataProcessing(data);
+                                    System.out.println("GD room");
                                 }
                                  
                                 

@@ -43,7 +43,14 @@ public class ObjectWrapper  implements Serializable{
     public static final int REPLY_ADD_GROUP = 22;
 
     public static final int REPLY_DISPLAY_RANK = 23;
+    
+    public static final int DISPLAY_ROOM = 24;
+    public static final int REPLY_DISPLAY_ROOM = 25;
+    
+    public static final int REPLY_GET_LIST_PLAYER = 27;
             
+    public static final int REPLY_UPDATE_GD_PLAYER = 29;
+        
     
     public static final int SEND_NOTIFY_GROUP = 46;
     public static final int REPLY_SEND_NOTIFY_GROUP = 47;

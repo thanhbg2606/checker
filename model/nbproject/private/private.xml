@@ -3,8 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/BTL_LTM/BTL_LTM/model/src/rmi/general/UserGroupInterface.java</file>
-            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/BTL_LTM/BTL_LTM/model/src/model/ObjectWrapper.java</file>
+            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/checker/model/src/model/IPAddress.java</file>
+            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/checker/model/src/model/ObjectWrapper.java</file>
+            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/checker/model/src/model/Friend.java</file>
+            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/checker/model/src/model/Room.java</file>
+            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/checker/model/src/model/Notify.java</file>
+            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/checker/model/src/rmi/general/RoomInterface.java</file>
+            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/checker/model/src/model/UserGroup.java</file>
+            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/checker/model/src/model/Group.java</file>
         </group>
     </open-files>
 </project-private>

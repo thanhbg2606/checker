@@ -14,12 +14,14 @@ import model.Group;
 import model.User;
 import model.UserGroup;
 import model.Rank;
+import model.Room;
 
 import tcp.client.view.ClientMainFrm;
 import rmi.general.GroupInterface;
 import rmi.general.NotifyInterface;
 import rmi.general.UserGroupInterface;
 import rmi.general.RankInterface;
+import rmi.general.RoomInterface;
  
  
 public class ClientRMICtr {
@@ -28,6 +30,7 @@ public class ClientRMICtr {
     private NotifyInterface notifyRO;
     private UserGroupInterface usergroupRO;
     private RankInterface rankRO;
+    private RoomInterface roomRO;
     private IPAddress serverAddress = new IPAddress("localhost", 9999); //default server address
     private String rmiService = "rmiServer";                            //default server service key
      
@@ -51,6 +54,7 @@ public class ClientRMICtr {
             notifyRO = (NotifyInterface)(registry.lookup(rmiService));
             usergroupRO = (UserGroupInterface)(registry.lookup(rmiService));
             rankRO = (RankInterface)(registry.lookup(rmiService));
+            roomRO = (RoomInterface)(registry.lookup(rmiService));
              
             view.showMessage("Found the remote objects at the host: " + serverAddress.getHost() + ", port: " + serverAddress.getPort());
         }catch(Exception e){
@@ -195,5 +199,49 @@ public class ClientRMICtr {
         }
     }
     
+    public ArrayList<Room> getRoom(String string){
+        ArrayList<Room> res = new ArrayList<Room>();
+        try {
+            
+            res = roomRO.getRoom(string);
+//            
+            return res;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     
+    public Room createdRoom(int id, String name){
+        Room r = new Room();
+        try{
+            r = roomRO.createdRoom(id, name);
+            return r;
+        }catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public User getUserById(int id){
+        User u = new User();
+        try {
+            u = roomRO.getUserById(id);
+            return u;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public ArrayList<User> RemoteLstUserRoom(Room room){
+        ArrayList<User> res = new ArrayList<User>();
+        try {
+            res = roomRO.lstUserRoom(room); 
+            return res;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    } 
 }

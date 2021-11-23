@@ -24,6 +24,7 @@ import model.ObjectWrapper;
 import model.User;
 import model.UserGroup;
 import model.Rank;
+import model.Room;
 
 import tcp.client.control.ClientCtr;
 import rmi.client.control.ClientRMICtr;
@@ -93,6 +94,7 @@ public class HomeUserFrm extends javax.swing.JFrame implements ActionListener{
         btnGroupNotify.addActionListener(this);
         btn_exit_group.addActionListener(this);
         btnUpdateNotify.addActionListener(this);
+        btnPlay.addActionListener(this);
         
         
         showTT();
@@ -378,6 +380,7 @@ public class HomeUserFrm extends javax.swing.JFrame implements ActionListener{
         txtName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtStatus = new javax.swing.JLabel();
+        btnPlay = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         txtSfriend = new javax.swing.JTextField();
@@ -458,6 +461,8 @@ public class HomeUserFrm extends javax.swing.JFrame implements ActionListener{
         txtStatus.setBackground(new java.awt.Color(0, 0, 0));
         txtStatus.setForeground(new java.awt.Color(0, 204, 0));
 
+        btnPlay.setText("Chơi");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -488,6 +493,8 @@ public class HomeUserFrm extends javax.swing.JFrame implements ActionListener{
                         .addComponent(btnAddFriend)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
@@ -510,7 +517,8 @@ public class HomeUserFrm extends javax.swing.JFrame implements ActionListener{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddFriend)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(btnPlay))
                 .addGap(39, 39, 39))
         );
 
@@ -776,6 +784,7 @@ public class HomeUserFrm extends javax.swing.JFrame implements ActionListener{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddFriend;
     private javax.swing.JButton btnGroupNotify;
+    private javax.swing.JButton btnPlay;
     private javax.swing.JButton btnUpdateNotify;
     private javax.swing.JButton btn_exit_group;
     private javax.swing.JButton btnaddgroup;
@@ -897,6 +906,16 @@ public class HomeUserFrm extends javax.swing.JFrame implements ActionListener{
             
             receivedDataProcessing(ob);
             
+        }
+        
+        if((e.getSource() instanceof JButton) && (((JButton)e.getSource()).equals(btnPlay))) {
+            for(ObjectWrapper func: mySocket.getActiveFunction())
+                    if(func.getData() instanceof PlayFrm) {
+                        ((PlayFrm)func.getData()).setVisible(true);
+                        return;
+                    }
+                PlayFrm p = new PlayFrm(myRMI,mySocket,user);
+                p.setVisible(true);
         }
         
         
@@ -1091,17 +1110,19 @@ public class HomeUserFrm extends javax.swing.JFrame implements ActionListener{
             tbllistmember_member.setModel(tableModel);
         }
         
-        else if (data.getData() instanceof User[] 
+        else if (data.getData() instanceof Room 
                 && data.getPerformative() == ObjectWrapper.REPLY_SEND_CHALLENGE_FRIEND){
-            User[] users = (User[]) data.getData();
+            Room users = (Room) data.getData();
             int n = JOptionPane.showConfirmDialog(home, 
-                            "Chấp nhận thách đấu " + users[1].getName(),
+                            "Chấp nhận thách đấu với người có ID:" + users.getRoomMasterId(),
                                     "An Inane Question",
                                     JOptionPane.YES_NO_OPTION);
                             if(n==0){
                                 System.out.println("YES");
-//                                mySocket.sendData(new ObjectWrapper(ObjectWrapper.ADD_FRIEND, users));
-//                                mySocket.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_ADD_FRIEND, this));
+                                mySocket.sendData(new ObjectWrapper(ObjectWrapper.ADD_CHALLENGE, users));
+//                                mySocket.getActiveFunction().add(new ObjectWrapper(ObjectWrapper.REPLY_ADD_CHALLENGE, this));
+                                
+                                new RoomFrm(myRMI, mySocket, user, users).setVisible(true);
                             }
                             else{
                                 System.out.println("No");

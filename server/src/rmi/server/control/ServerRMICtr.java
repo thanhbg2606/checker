@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import jdbc.dao.GroupDAO;
 import jdbc.dao.NotifyDAO;
 import jdbc.dao.RankDAO;
+import jdbc.dao.RoomDAO;
  
 import jdbc.dao.UserDAO;
 import jdbc.dao.UserGroupDAO;
@@ -20,17 +21,19 @@ import model.IPAddress;
 import model.Notify;
 import model.User;
 import model.Rank;
+import model.Room;
 import model.UserGroup;
 
 import rmi.general.GroupInterface;
 import rmi.general.NotifyInterface;
 import rmi.general.UserGroupInterface;
 import rmi.general.RankInterface;
+import rmi.general.RoomInterface;
 
 import tcp.server.view.ServerMainFrm;
  
  
-public class ServerRMICtr extends UnicastRemoteObject implements GroupInterface, NotifyInterface, UserGroupInterface,RankInterface{
+public class ServerRMICtr extends UnicastRemoteObject implements GroupInterface, NotifyInterface, UserGroupInterface,RankInterface, RoomInterface{
     private IPAddress myAddress = new IPAddress("localhost", 9999);     // default server host/port
     private Registry registry;
     private ServerMainFrm view;
@@ -135,6 +138,26 @@ public class ServerRMICtr extends UnicastRemoteObject implements GroupInterface,
     @Override
     public ArrayList<Rank> getRank(int by) throws RemoteException {
         return new RankDAO().getRank(by);
+    }
+
+    @Override
+    public ArrayList<Room> getRoom(String string) throws RemoteException {
+            return new RoomDAO().getRoom(string);
+    }
+    
+    @Override
+    public Room createdRoom(int id, String name) throws RemoteException {
+            return new RoomDAO().createdRoom(id, name);
+    }
+
+    @Override
+    public User getUserById(int id) throws RemoteException {
+        return new UserDAO().getUserById(id);
+    }
+
+    @Override
+    public ArrayList<User> lstUserRoom(Room room) throws RemoteException {
+        return new RoomDAO().lstUserRoom(room);
     }
 
     

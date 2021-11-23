@@ -20,6 +20,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import jdbc.dao.GroupDAO;
 import jdbc.dao.NotifyDAO;
+import jdbc.dao.RoomDAO;
  
 import jdbc.dao.UserDAO;
 import jdbc.dao.UserGroupDAO;
@@ -28,6 +29,7 @@ import model.Group;
 import model.IPAddress;
 import model.Notify;
 import model.ObjectWrapper;
+import model.Room;
 import model.User;
 import model.UserGroup;
 import tcp.server.view.ServerMainFrm;
@@ -136,6 +138,9 @@ public class ServerCtr {
                  else if(ow.getPerformative() == ObjectWrapper.ADD_FRIEND){
                      ps.sendDisplayFriend(us[0]);
                  }
+                 else if(ow.getPerformative() == ObjectWrapper.ADD_CHALLENGE){
+                     ps.sendData(new ObjectWrapper(ObjectWrapper.REPLY_UPDATE_GD_PLAYER, "updateGD"));
+                 }
                 
              }
              if(ps.uo.getId() == us[1].getId()){
@@ -144,6 +149,9 @@ public class ServerCtr {
                  }
                  else if(ow.getPerformative() == ObjectWrapper.ADD_FRIEND){
                      ps.sendDisplayFriend(us[1]);
+                 }
+                else if(ow.getPerformative() == ObjectWrapper.ADD_CHALLENGE){
+                     ps.sendData(new ObjectWrapper(ObjectWrapper.REPLY_UPDATE_GD_PLAYER, "updateGD"));
                  }
              }
         }
@@ -264,13 +272,19 @@ public class ServerCtr {
             ArrayList<Friend> result = ud1.displayFriend(user);
             sendData(new ObjectWrapper(ObjectWrapper.REPLY_DISPLAY_FRIEND,result));
         }  
+        
+        public void sendDisplayFriendRoom(User user){
+            UserDAO ud1 = new UserDAO();
+            ArrayList<Friend> result = ud1.displayFriend(user);
+            sendData(new ObjectWrapper(ObjectWrapper.REPLY_DISPLAY_ROOM,result));
+        }  
  
         // gửi yêu cầu kết bạn
         public void sendRequestFriend(ObjectWrapper o){
-            User[] u = (User[]) o.getData();
             //gửi thông báo yêu cầu kết bạn hoặc yêu cầu gia nhập nhóm đến chủ nhóm
             if(o.getPerformative() == ObjectWrapper.SEND_REQUEST_ADD_FRIEND
                     || o.getPerformative() == ObjectWrapper.SEND_REQUEST_JOIN_GROUP){
+                User[] u = (User[]) o.getData();
                 for (ServerProcessing sp : myProcess) {
                     if(sp.uo != null && sp.uo.getId() == u[1].getId()){
                         displayNotify(u[1]);
@@ -279,7 +293,8 @@ public class ServerCtr {
             }
             else if(o.getPerformative() == ObjectWrapper.SEND_CHALLENGE_FRIEND){
                 for (ServerProcessing sp : myProcess) {
-                    if(sp.uo != null && sp.uo.getId() == u[1].getId()){                     
+                    Room u = (Room) o.getData();
+                    if(sp.uo != null && sp.uo.getId() == u.getPlayerId()){                     
                         sp.sendData(new ObjectWrapper(ObjectWrapper.REPLY_SEND_CHALLENGE_FRIEND,u));
                     }
                 }
@@ -294,6 +309,7 @@ public class ServerCtr {
             NotifyDAO nd = new NotifyDAO();
             UserGroupDAO ug = new UserGroupDAO();
             GroupDAO g = new GroupDAO();
+            RoomDAO rd = new RoomDAO();
             try {
                 while(true) {
                     ObjectInputStream ois = new ObjectInputStream(mySocket.getInputStream());
@@ -371,7 +387,7 @@ public class ServerCtr {
                             break;
                         } 
                         case ObjectWrapper.SEND_CHALLENGE_FRIEND -> {
-                            User[] users = (User[])data.getData();
+                            Room users = (Room)data.getData();
                              sendRequestFriend(data);
                
                             break;
@@ -431,6 +447,19 @@ public class ServerCtr {
                                 sendClientGroup(data);   
                             }
                             break;
+                        }
+                        
+                        case   ObjectWrapper.DISPLAY_ROOM ->{
+                            User user = (User)data.getData();   
+                            sendDisplayFriendRoom(user);
+                        }
+                        
+                        case ObjectWrapper.ADD_CHALLENGE ->{
+                            Room room = (Room)data.getData();
+                            rd.joinRoom(room.getPlayerId(), room.getRoomCode());
+                            User[] user = {ud.getUserById(room.getRoomMasterId()), ud.getUserById(room.getPlayerId())};
+                            data.setData(user);
+                            updateDisplayFriend(data);
                         }
                         
                         

@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/BTL_LTM/BTL_LTM/server/src/jdbc/dao/UserDAO.java</file>
-            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/BTL_LTM/BTL_LTM/server/src/tcp/server/control/ServerCtr.java</file>
-            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/BTL_LTM/BTL_LTM/server/src/jdbc/dao/UserGroupDAO.java</file>
-            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/BTL_LTM/BTL_LTM/server/src/jdbc/dao/GroupDAO.java</file>
-            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/BTL_LTM/BTL_LTM/server/src/rmi/server/control/ServerRMICtr.java</file>
+            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/checker/server/src/jdbc/dao/UserDAO.java</file>
+            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/checker/server/src/jdbc/dao/UserGroupDAO.java</file>
+            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/checker/server/src/tcp/server/control/ServerCtr.java</file>
+            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/checker/server/src/jdbc/dao/RankDAO.java</file>
+            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/checker/server/src/jdbc/dao/RoomDAO.java</file>
+            <file>file:/C:/Users/NgocThanh/OneDrive%20-%20ptit.edu.vn/Desktop/checker/server/src/rmi/server/control/ServerRMICtr.java</file>
         </group>
     </open-files>
 </project-private>
